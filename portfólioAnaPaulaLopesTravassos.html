@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ana Paula Travassos — Portfólio Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+/* ══════════════════════════════════════════
+   CSS RESET & VARIABLES
+   ══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-primary:    #0a0a0f;
+  --bg-secondary:  #12121a;
+  --bg-card:       #1a1a2e;
+  --bg-card-hover: #22223a;
+  --accent-cyan:   #00e5ff;
+  --accent-green:  #00e676;
+  --accent-purple: #b388ff;
+  --accent-orange: #ff9100;
+  --accent-pink:   #ff4081;
+  --accent-yellow: #ffea00;
+  --text-primary:  #e8e8f0;
+  --text-secondary:#9090a8;
+  --text-muted:    #606078;
+  --border:        #2a2a40;
+  --glow-cyan:     0 0 30px rgba(0,229,255,.15);
+  --glow-green:    0 0 30px rgba(0,230,118,.15);
+  --radius:        16px;
+  --radius-sm:     10px;
+  --transition:    .35s cubic-bezier(.4,0,.2,1);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ══════════════════════════════════════════
+   ANIMATED BACKGROUND GRID
+   ══════════════════════════════════════════ */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  background: rgba(10,10,15,.75);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+}
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.nav-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700; font-size: 1.1rem;
+  color: var(--accent-cyan);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--text-muted); }
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: .85rem;
+  font-weight: 500;
+  letter-spacing: .03em;
+  transition: color var(--transition);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--accent-cyan);
+  transition: width var(--transition);
+}
+.nav-links a:hover { color: var(--accent-cyan); }
+.nav-links a:hover::after { width: 100%; }
+
+/* Mobile hamburger */
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: var(--text-primary);
+  margin: 5px 0;
+  transition: var(--transition);
+}
+
+/* ══════════════════════════════════════════
+   SECTIONS — GENERAL
+   ══════════════════════════════════════════ */
+section {
+  position: relative; z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem 2rem;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: .5rem;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 640px;
+  margin-bottom: 3rem;
+}
+
+/* ══════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding-top: 64px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(0,229,255,.08);
+  border: 1px solid rgba(0,229,255,.2);
+  border-radius: 100px;
+  padding: .4rem 1rem;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--accent-cyan);
+  width: fit-content;
+  margin-bottom: 1.5rem;
+  animation: fadeUp .8s ease both;
+}
+.hero-badge .dot {
+  width: 8px; height: 8px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(1.4); }
+}
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  animation: fadeUp .8s .15s ease both;
+}
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-description {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: 2rem;
+  animation: fadeUp .8s .3s ease both;
+}
+.hero-ctas {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  animation: fadeUp .8s .45s ease both;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .8rem 1.6rem;
+  border-radius: 100px;
+  font-size: .9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition);
+  cursor: pointer;
+  border: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-cyan), #00b8d4);
+  color: #000;
+}
+.btn-primary:hover {
+  box-shadow: 0 0 30px rgba(0,229,255,.35);
+  transform: translateY(-2px);
+}
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text-primary);
+}
+.btn-outline:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+  transform: translateY(-2px);
+}
+.hero-stats {
+  display: flex; gap: 3rem; margin-top: 3.5rem;
+  animation: fadeUp .8s .6s ease both;
+}
+.hero-stat-number {
+  font-size: 2rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-stat-label {
+  font-size: .8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════
+   ABOUT
+   ══════════════════════════════════════════ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.about-text p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.about-text strong { color: var(--text-primary); }
+.about-highlights {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.highlight-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.2rem;
+  transition: all var(--transition);
+}
+.highlight-card:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-3px);
+}
+.highlight-icon {
+  font-size: 1.6rem;
+  margin-bottom: .5rem;
+}
+.highlight-card h4 {
+  font-size: .85rem;
+  font-weight: 700;
+  margin-bottom: .25rem;
+}
+.highlight-card p {
+  font-size: .78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════
+   TECH STACK
+   ══════════════════════════════════════════ */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.stack-category {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  transition: all var(--transition);
+}
+.stack-category:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+}
+.stack-category-header {
+  display: flex; align-items: center; gap: .6rem;
+  margin-bottom: 1.2rem;
+}
+.stack-category-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.stack-category h3 {
+  font-size: .95rem;
+  font-weight: 700;
+}
+.stack-tags {
+  display: flex; flex-wrap: wrap; gap: .5rem;
+}
+.stack-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  font-weight: 500;
+  padding: .35rem .75rem;
+  border-radius: 100px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+.stack-tag:hover {
+  background: rgba(0,229,255,.1);
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+/* Category accent colors */
+.cat-backend .stack-category-icon { background: rgba(0,229,255,.12); color: var(--accent-cyan); }
+.cat-data .stack-category-icon    { background: rgba(0,230,118,.12); color: var(--accent-green); }
+.cat-infra .stack-category-icon   { background: rgba(255,64,129,.12); color: var(--accent-pink); }
+.cat-tools .stack-category-icon   { background: rgba(179,136,255,.12); color: var(--accent-purple); }
+
+/* ══════════════════════════════════════════
+   PROJECTS
+   ══════════════════════════════════════════ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex; flex-direction: column;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.project-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.project-card:hover {
+  border-color: rgba(0,229,255,.3);
+  box-shadow: var(--glow-cyan);
+  transform: translateY(-4px);
+}
+.project-card:hover::before { opacity: 1; }
+.project-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  color: var(--text-muted);
+  margin-bottom: .8rem;
+}
+.project-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: .6rem;
+  line-height: 1.3;
+}
+.project-card .project-desc {
+  font-size: .88rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+.project-meta {
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.project-meta-row {
+  display: flex; align-items: flex-start; gap: .5rem;
+  font-size: .8rem;
+}
+.project-meta-label {
+  font-weight: 700;
+  color: var(--accent-cyan);
+  min-width: 70px;
+  flex-shrink: 0;
+}
+.project-meta-value {
+  color: var(--text-secondary);
+}
+.project-stack {
+  display: flex; flex-wrap: wrap; gap: .4rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.project-stack span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem;
+  padding: .25rem .6rem;
+  border-radius: 6px;
+  background: rgba(0,229,255,.06);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0,229,255,.12);
+}
+
+/* ══════════════════════════════════════════
+   LEADERSHIP
+   ══════════════════════════════════════════ */
+.leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.leadership-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  position: relative;
+  transition: all var(--transition);
+}
+.leadership-card:hover {
+  border-color: var(--accent-green);
+  box-shadow: var(--glow-green);
+  transform: translateY(-3px);
+}
+.leadership-emoji {
+  font-size: 2rem;
+  margin-bottom: .8rem;
+}
+.leadership-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+.leadership-card p {
+  font-size: .88rem;
+  color: var(--text-secondary);
+  margin-bottom: .8rem;
+}
+.leadership-impact {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--accent-green);
+  background: rgba(0,230,118,.08);
+  padding: .3rem .8rem;
+  border-radius: 100px;
+}
+
+/* ══════════════════════════════════════════
+   CERTIFICATIONS
+   ══════════════════════════════════════════ */
+.certs-container {
+  display: flex; flex-wrap: wrap; gap: 1rem;
+}
+.cert-badge {
+  display: flex; align-items: center; gap: .8rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.4rem;
+  transition: all var(--transition);
+  flex: 1 1 280px;
+}
+.cert-badge:hover {
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 25px rgba(255,145,0,.12);
+  transform: translateY(-2px);
+}
+.cert-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(255,145,0,.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.cert-info h4 {
+  font-size: .88rem;
+  font-weight: 700;
+}
+.cert-info p {
+  font-size: .75rem;
+  color: var(--text-muted);
+}
+
+/* ══════════════════════════════════════════
+   CTA / CONTACT
+   ══════════════════════════════════════════ */
+.cta-section {
+  text-align: center;
+  padding: 6rem 2rem 8rem;
+}
+.cta-box {
+  background: linear-gradient(135deg, rgba(0,229,255,.06), rgba(0,230,118,.06));
+  border: 1px solid rgba(0,229,255,.15);
+  border-radius: 24px;
+  padding: 4rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+.cta-box::before {
+  content: '';
+  position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 40%, rgba(0,229,255,.06), transparent 60%);
+  pointer-events: none;
+}
+.cta-box h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 800;
+  margin-bottom: .8rem;
+  position: relative;
+}
+.cta-box p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  position: relative;
+}
+.cta-links {
+  display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+  position: relative;
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════ */
+footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: .78rem;
+  position: relative; z-index: 1;
+}
+footer a { color: var(--accent-cyan); text-decoration: none; }
+
+/* ══════════════════════════════════════════
+   SCROLL ANIMATIONS
+   ══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: absolute; top: 64px; left: 0; right: 0;
+    background: rgba(10,10,15,.97);
+    backdrop-filter: blur(20px);
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    gap: 1.2rem;
+  }
+  .about-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.5rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVIGATION ═══════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">ana<span>.dev</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Sobre</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#projects">Projetos</a></li>
+      <li><a href="#leadership">Liderança</a></li>
+      <li><a href="#certs">Certificações</a></li>
+      <li><a href="#contact">Contato</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Aberta a oportunidades de estágio
+  </div>
+  <h1>
+    Olá, eu sou a<br />
+    <span class="gradient">Ana Paula Travassos</span>
+  </h1>
+  <p class="hero-description">
+    Estudante de Ciência da Computação apaixonada por transformar dados brutos em decisões estratégicas, construir backends robustos e proteger sistemas com práticas de cibersegurança. Mentalidade orientada a resultados e liderança acadêmica comprovada.
+  </p>
+  <div class="hero-ctas">
+    <a href="#projects" class="btn btn-primary">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      Ver Projetos
+    </a>
+    <a href="#contact" class="btn btn-outline">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Fale Comigo
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-number">7+</div>
+      <div class="hero-stat-label">Projetos</div>
+    </div>
+    <div>
+      <div class="hero-stat-number">10 anos</div>
+      <div class="hero-stat-label">Dados analisados</div>
+    </div>
+    <div>
+      <div class="hero-stat-number">3</div>
+      <div class="hero-stat-label">Certificações Cisco</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">// Sobre mim</p>
+    <h2 class="section-title">Perfil analítico, proativo<br />e orientado a impacto.</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        Sou estudante de <strong>Ciência da Computação na FMU</strong>, onde atuo como <strong>Embaixadora da Turma</strong> e ex-Monitora Acadêmica — papéis que me ensinaram a comunicar conceitos técnicos com clareza e a liderar iniciativas que geram resultados reais.
+      </p>
+      <p>
+        Minha trajetória combina <strong>Engenharia de Dados</strong>, <strong>Desenvolvimento Backend</strong> e <strong>Cibersegurança</strong>, com experiência prática em bases de dados de larga escala (DATASUS), APIs containerizadas e dashboards de Business Intelligence.
+      </p>
+      <p>
+        Busco um <strong>estágio de alta performance</strong> onde eu possa aplicar minha stack técnica, minha mentalidade orientada a resultados e minha capacidade de aprender rapidamente para gerar valor mensurável ao negócio.
+      </p>
+    </div>
+    <div class="about-highlights reveal">
+      <div class="highlight-card">
+        <div class="highlight-icon">🎓</div>
+        <h4>Formação</h4>
+        <p>Ciência da Computação — FMU (em andamento)</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🎯</div>
+        <h4>Foco</h4>
+        <p>Dados, Backend e Cibersegurança</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🌐</div>
+        <h4>Idiomas</h4>
+        <p>Português (nativo) · Inglês (intermediário TI)</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🚀</div>
+        <h4>Mindset</h4>
+        <p>Result-Driven · Lifelong Learner</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TECH STACK ═══════════════ -->
+<section id="stack">
+  <div class="reveal">
+    <p class="section-label">// Tech Stack</p>
+    <h2 class="section-title">Ferramentas que domino<br />e utilizo no dia a dia.</h2>
+    <p class="section-subtitle">Organizadas por domínio de atuação para facilitar a leitura de recrutadores e tech leads.</p>
+  </div>
+  <div class="stack-grid reveal">
+    <!-- Backend -->
+    <div class="stack-category cat-backend">
+      <div class="stack-category-header">
+        <div class="stack-category-icon">⚙️</div>
+        <h3>Backend & Linguagens</h3>
+      </div>
+      <div class="stack-tags">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Java</span>
+        <span class="stack-tag">C++</span>
+        <span class="stack-tag">R</span>
+        <span class="stack-tag">SQL</span>
+        <span class="stack-tag">REST APIs</span>
+        <span class="stack-tag">POO</span>
+      </div>
+    </div>
+    <!-- Data -->
+    <div class="stack-category cat-data">
+      <div class="stack-category-header">
+        <div class="stack-category-icon">📊</div>
+        <h3>Dados & BI</h3>
+      </div>
+      <div class="stack-tags">
+        <span class="stack-tag">Power BI</span>
+        <span class="stack-tag">Excel Avançado</span>
+        <span class="stack-tag">PostgreSQL</span>
+        <span class="stack-tag">Pandas</span>
+        <span class="stack-tag">Big Data</span>
+        <span class="stack-tag">ETL</span>
+        <span class="stack-tag">Análise Estatística</span>
+      </div>
+    </div>
+    <!-- Infra / Security -->
+    <div class="stack-category cat-infra">
+      <div class="stack-category-header">
+        <div class="stack-category-icon">🛡️</div>
+        <h3>Infra & Cibersegurança</h3>
+      </div>
+      <div class="stack-tags">
+        <span class="stack-tag">Docker</span>
+        <span class="stack-tag">DevSecOps</span>
+        <span class="stack-tag">Auth Tokens</span>
+        <span class="stack-tag">Network Security</span>
+        <span class="stack-tag">Cisco CyberOps</span>
+        <span class="stack-tag">Vuln. Mitigation</span>
+      </div>
+    </div>
+    <!-- Tools -->
+    <div class="stack-category cat-tools">
+      <div class="stack-category-header">
+        <div class="stack-category-icon">🧰</div>
+        <h3>Ferramentas & Outros</h3>
+      </div>
+      <div class="stack-tags">
+        <span class="stack-tag">Git & GitHub</span>
+        <span class="stack-tag">Google Colab</span>
+        <span class="stack-tag">Arduino</span>
+        <span class="stack-tag">IoT</span>
+        <span class="stack-tag">Visão Computacional</span>
+        <span class="stack-tag">Linux</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PROJECTS ═══════════════ -->
+<section id="projects">
+  <div class="reveal">
+    <p class="section-label">// Projetos em Destaque</p>
+    <h2 class="section-title">Problemas reais,<br />soluções mensuráveis.</h2>
+    <p class="section-subtitle">Cada projeto segue a estrutura Problema → Solução → Resultado para demonstrar impacto concreto.</p>
+  </div>
+  <div class="projects-grid">
+
+    <!-- Project 1 -->
+    <div class="project-card reveal">
+      <span class="project-number">01 / INICIAÇÃO CIENTÍFICA</span>
+      <h3>Análise de Big Data — DATASUS</h3>
+      <p class="project-desc">
+        Estudo analítico de uma base histórica de <strong>10 anos (2013–2024)</strong> de dados epidemiológicos do DATASUS para inteligência em saúde pública.
+      </p>
+      <div class="project-meta">
+        <div class="project-meta-row">
+          <span class="project-meta-label">Problema</span>
+          <span class="project-meta-value">Dados brutos desestruturados impossibilitavam a identificação de padrões regionais de saúde.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Solução</span>
+          <span class="project-meta-value">Pipeline de tratamento e estruturação de grandes volumes com R e Python, gerando visualizações no Power BI.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Resultado</span>
+          <span class="project-meta-value">Mapeamento de correlações socioeconômicas e relatórios estatísticos para tomada de decisão em saúde pública.</span>
+        </div>
+      </div>
+      <div class="project-stack">
+        <span>R</span><span>Python</span><span>Excel</span><span>Power BI</span>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card reveal">
+      <span class="project-number">02 / HACKATHON</span>
+      <h3>API RESTful Containerizada & DevSecOps</h3>
+      <p class="project-desc">
+        Backend de uma API focada em escalabilidade e segurança, construída sob pressão de tempo em competição de hackathon.
+      </p>
+      <div class="project-meta">
+        <div class="project-meta-row">
+          <span class="project-meta-label">Problema</span>
+          <span class="project-meta-value">Necessidade de uma API segura e escalável entregue em prazo extremamente curto.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Solução</span>
+          <span class="project-meta-value">Arquitetura containerizada com Docker, autenticação via tokens e isolamento de credenciais em variáveis de ambiente.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Resultado</span>
+          <span class="project-meta-value">API 100% funcional com mitigação preventiva de vulnerabilidades e deploy reproduzível.</span>
+        </div>
+      </div>
+      <div class="project-stack">
+        <span>Python</span><span>PostgreSQL</span><span>Docker</span><span>InfoSec</span>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-card reveal">
+      <span class="project-number">03 / POO</span>
+      <h3>Sistema de Conta Bancária em Java</h3>
+      <p class="project-desc">
+        Modelagem completa de um sistema bancário aplicando princípios sólidos de Programação Orientada a Objetos.
+      </p>
+      <div class="project-meta">
+        <div class="project-meta-row">
+          <span class="project-meta-label">Problema</span>
+          <span class="project-meta-value">Regras de negócio complexas exigiam código modular, reutilizável e de fácil manutenção.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Solução</span>
+          <span class="project-meta-value">Arquitetura com encapsulamento, abstração e herança para modelar contas, transações e validações.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Resultado</span>
+          <span class="project-meta-value">Código limpo e escalável, demonstrando domínio de padrões de projeto e boas práticas de engenharia.</span>
+        </div>
+      </div>
+      <div class="project-stack">
+        <span>Java</span><span>POO</span><span>Clean Code</span>
+      </div>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="project-card reveal">
+      <span class="project-number">04 / VISÃO COMPUTACIONAL</span>
+      <h3>Processamento de Imagens & Reconhecimento Facial</h3>
+      <p class="project-desc">
+        Algoritmo de tratamento de imagens com fundamentos para reconhecimento facial e modelos preditivos.
+      </p>
+      <div class="project-meta">
+        <div class="project-meta-row">
+          <span class="project-meta-label">Problema</span>
+          <span class="project-meta-value">Análise manual de imagens é lenta e propensa a erros em larga escala.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Solução</span>
+          <span class="project-meta-value">Pipeline de pré-processamento e extração de features em Python no Google Colab.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Resultado</span>
+          <span class="project-meta-value">Automação da análise de imagens com otimização para integração em modelos de ML.</span>
+        </div>
+      </div>
+      <div class="project-stack">
+        <span>Python</span><span>Google Colab</span><span>OpenCV</span>
+      </div>
+    </div>
+
+    <!-- Project 5 -->
+    <div class="project-card reveal">
+      <span class="project-number">05 / BUSINESS INTELLIGENCE</span>
+      <h3>Dashboard Analítico de Consumo</h3>
+      <p class="project-desc">
+        Dashboard interativo no Power BI focado em comportamento de consumo para decisões estratégicas de negócio.
+      </p>
+      <div class="project-meta">
+        <div class="project-meta-row">
+          <span class="project-meta-label">Problema</span>
+          <span class="project-meta-value">Dados de vendas dispersos em planilhas impediam a visão holística do comportamento do cliente.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Solução</span>
+          <span class="project-meta-value">Modelagem de dados com SQL e construção de dashboard com KPIs de retenção e expansão.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Resultado</span>
+          <span class="project-meta-value">Transformação de dados brutos em insights acionáveis para expansão de mercado e retenção de clientes.</span>
+        </div>
+      </div>
+      <div class="project-stack">
+        <span>Power BI</span><span>SQL</span><span>Excel</span>
+      </div>
+    </div>
+
+    <!-- Project 6 -->
+    <div class="project-card reveal">
+      <span class="project-number">06 / IoT</span>
+      <h3>Automação Residencial com IoT</h3>
+      <p class="project-desc">
+        Projeto integrando hardware e software para controle inteligente de dispositivos residenciais.
+      </p>
+      <div class="project-meta">
+        <div class="project-meta-row">
+          <span class="project-meta-label">Problema</span>
+          <span class="project-meta-value">Tarefas residenciais repetitivas sem automação geram desperdício de tempo e energia.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Solução</span>
+          <span class="project-meta-value">Integração Arduino + Python para controle de sensores e atuadores via código.</span>
+        </div>
+        <div class="project-meta-row">
+          <span class="project-meta-label">Resultado</span>
+          <span class="project-meta-value">Automação prática de tarefas físicas com interface programável e extensível.</span>
+        </div>
+      </div>
+      <div class="project-stack">
+        <span>Arduino</span><span>C++</span><span>Python</span><span>IoT</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ LEADERSHIP ═══════════════ -->
+<section id="leadership">
+  <div class="reveal">
+    <p class="section-label">// Liderança & Impacto</p>
+    <h2 class="section-title">Liderança que gera<br />resultados acadêmicos reais.</h2>
+    <p class="section-subtitle">Mais do que código: minha atuação como líder acadêmica demonstra capacidade de comunicação, gestão e impacto coletivo.</p>
+  </div>
+  <div class="leadership-grid">
+    <div class="leadership-card reveal">
+      <div class="leadership-emoji">👑</div>
+      <h3>Embaixadora da Turma</h3>
+      <p>Ponte direta de comunicação entre alunos e coordenação acadêmica da FMU, representando os interesses da turma e articulando melhorias no curso.</p>
+      <span class="leadership-impact">✦ Representação ativa de toda a turma</span>
+    </div>
+    <div class="leadership-card reveal">
+      <div class="leadership-emoji">📚</div>
+      <h3>Monitora Acadêmica</h3>
+      <p>Suporte técnico e pedagógico a colegas em disciplinas de programação, contribuindo diretamente para a redução do índice de reprovabilidade.</p>
+      <span class="leadership-impact">✦ Redução da reprovabilidade</span>
+    </div>
+    <div class="leadership-card reveal">
+      <div class="leadership-emoji">🎤</div>
+      <h3>Workshop de Git & GitHub</h3>
+      <p>Condução de workshop presencial sobre controle de versão, capacitando dezenas de alunos em fluxos de trabalho colaborativos com Git.</p>
+      <span class="leadership-impact">✦ Dezenas de alunos capacitados</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CERTIFICATIONS ═══════════════ -->
+<section id="certs">
+  <div class="reveal">
+    <p class="section-label">// Certificações</p>
+    <h2 class="section-title">Validações da indústria<br />em Cibersegurança.</h2>
+    <p class="section-subtitle">Certificações emitidas pela Cisco Networking Academy que comprovam conhecimento em segurança de redes e análise de ameaças.</p>
+  </div>
+  <div class="certs-container reveal">
+    <div class="cert-badge">
+      <div class="cert-icon">🔐</div>
+      <div class="cert-info">
+        <h4>Junior Cybersecurity Analyst</h4>
+        <p>Cisco Networking Academy</p>
+      </div>
+    </div>
+    <div class="cert-badge">
+      <div class="cert-icon">🌐</div>
+      <div class="cert-info">
+        <h4>Network Fundamentals</h4>
+        <p>Cisco Networking Academy</p>
+      </div>
+    </div>
+    <div class="cert-badge">
+      <div class="cert-icon">🛡️</div>
+      <div class="cert-info">
+        <h4>Cybersecurity Fundamentals</h4>
+        <p>Cisco Networking Academy</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CTA / CONTACT ═══════════════ -->
+<section class="cta-section" id="contact">
+  <div class="cta-box reveal">
+    <h2>Vamos construir algo<br /><span class="gradient">incrível juntos?</span></h2>
+    <p>
+      Estou aberta a oportunidades de estágio em Dados, Backend e Cibersegurança.<br />
+      Se sua equipe busca alguém com mentalidade orientada a resultados e vontade de crescer, vamos conversar.
+    </p>
+    <div class="cta-links">
+      <a href="https://linkedin.com/in/anapaulalopestravassos" target="_blank" class="btn btn-primary">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/anapaulalttrav" target="_blank" class="btn btn-outline">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+      <a href="mailto:anapaulacontatotrabalho@gmail.com" class="btn btn-outline">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        E-mail
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <p>© 2026 Ana Paula Lopes Travassos · Feito com 💙 e muito <a href="#">código</a>.</p>
+</footer>
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+// Mobile menu toggle
+const hamburger = document.getElementById('hamburger');
+const navLinks  = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => navLinks.classList.remove('open'))
+);
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
